@@ -1,0 +1,26 @@
+import { Task } from '../domain/Task';
+import { TaskRepository } from '../domain/TaskRepository';
+import { GlobalDataSource } from '../../../shared/MongoClient';
+import { ObjectId } from 'mongodb';
+import { MongoTaskDocument } from './MongoTaskDocument';
+import { TaskId } from '../domain/value-object/TaskId';
+import { TaskMapper } from './TaskMapper';
+
+export default class MongoTaskRepository implements TaskRepository {
+  private readonly db = GlobalDataSource;
+  private readonly collectionName = 'tasks';
+
+  async find(id: TaskId): Promise<Task | null> {
+    const document: MongoTaskDocument | null = await this.db
+      .getCollection(this.collectionName)
+      .findOne<MongoTaskDocument>({
+        _id: new ObjectId(id.valueOf()),
+      });
+
+    if (!document) {
+      return null;
+    }
+
+    return TaskMapper.toDomain(document);
+  }
+}

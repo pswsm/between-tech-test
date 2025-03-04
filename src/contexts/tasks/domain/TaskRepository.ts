@@ -1,6 +1,6 @@
 import { Task } from './Task';
 import { TaskId } from './value-object/TaskId';
 
-export interface TaskFinder {
-  find(id: TaskId): Task;
+export interface TaskRepository {
+  find(id: TaskId): Promise<Task | null>;
 }
