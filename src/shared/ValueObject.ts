@@ -1,9 +1,9 @@
 export abstract class ValueObject<T> {
-	constructor(protected readonly value: T) {};
+  constructor(protected readonly value: T) {}
 
-	public valueOf(): T {
-		return this.value;
-	}
+  public valueOf(): T {
+    return this.value;
+  }
 
-	public abstract equals(other: ValueObject<T>): boolean;
+  public abstract equals(other: ValueObject<T>): boolean;
 }

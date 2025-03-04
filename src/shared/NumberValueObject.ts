@@ -1,7 +1,7 @@
-import { ValueObject } from "./ValueObject";
+import { ValueObject } from './ValueObject';
 
-export class NumberValueObject extends ValueObject<Number> {
-	public equals(other: NumberValueObject): boolean {
-		return other.valueOf() == this.value;
-	}
+export class NumberValueObject extends ValueObject<number> {
+  public equals(other: NumberValueObject): boolean {
+    return other.valueOf() == this.value;
+  }
 }
