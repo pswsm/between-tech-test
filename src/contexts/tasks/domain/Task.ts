@@ -1,24 +1,24 @@
 import { AggregateRoot } from 'src/shared/AggregateRoot';
-import { Image } from './Image';
 import { Price } from './Price';
 import { StringValueObject } from 'src/shared/StringValueObject';
 import { PrimitiveOf } from 'src/shared/FromPrimitves';
-import { Id } from './value-object/Id';
+import { TaskId } from './value-object/TaskId';
 import { TaskStatus } from './value-object/TaskStatus';
+import { ImageId } from 'src/contexts/images/domain/value-objects/ImageId';
 
 export class Task extends AggregateRoot {
   public static fromPrimitives(primitives: PrimitiveOf<Task>): Task {
     return new Task(
       new StringValueObject(primitives.id),
-      Image.fromPrimitives(primitives.image),
+      primitives.images.map((id) => new ImageId(id)),
       Price.fromPrimitives(primitives.price),
       new TaskStatus(primitives.status),
     );
   }
 
   constructor(
-    id: Id,
-    private readonly image: Image,
+    id: TaskId,
+    private readonly images: ImageId[],
     private readonly price: Price,
     private readonly status: TaskStatus,
   ) {
@@ -28,7 +28,7 @@ export class Task extends AggregateRoot {
   public toPrimitives() {
     return {
       id: this.id.valueOf(),
-      image: this.image.toPrimitives(),
+      images: this.images.map((id) => id.valueOf()),
       price: this.price.toPrimitives(),
       status: this.status.valueOf(),
     };
