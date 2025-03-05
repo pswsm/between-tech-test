@@ -5,7 +5,9 @@ import { ObjectId } from 'mongodb';
 import { MongoTaskDocument } from './MongoTaskDocument';
 import { TaskId } from '../domain/value-object/TaskId';
 import { TaskMapper } from './TaskMapper';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export default class MongoTaskRepository implements TaskRepository {
   private readonly db = GlobalDataSource;
   private readonly collectionName = 'tasks';

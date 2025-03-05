@@ -3,7 +3,7 @@ import { ImageRepository } from '../domain/ImageRepository';
 import { ImageId } from '../domain/value-objects/ImageId';
 import { ImageNotFound } from './errors/ImageNotFound';
 
-export class ImageFinder {
+export default class ImageFinder {
   constructor(private readonly repository: ImageRepository) {}
 
   public async get(id: ImageId): Promise<Image> {
