@@ -5,7 +5,7 @@ export class ImageViewModel {
   public static toResource(image: Image): ImageResource {
     return {
       path: image.getPath().valueOf(),
-      resolution: image.getResolution().valueOf(),
+      resolution: image.getResolution()?.valueOf() || null,
     };
   }
 }
