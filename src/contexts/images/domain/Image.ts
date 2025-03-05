@@ -9,23 +9,27 @@ export class Image extends AggregateRoot {
     return new Image(
       new ImageId(primitives.id),
       new Path(primitives.path),
-      new Resolution(primitives.resolution),
+      primitives.resolution ? new Resolution(primitives.resolution) : undefined,
     );
   }
 
   constructor(
     id: ImageId,
     private readonly path: Path,
-    private readonly resolution: Resolution,
+    private readonly resolution?: Resolution,
   ) {
     super(id);
+  }
+
+  public getId(): ImageId {
+    return this.id;
   }
 
   public getPath(): Path {
     return this.path;
   }
 
-  public getResolution(): Resolution {
+  public getResolution(): Resolution | undefined {
     return this.resolution;
   }
 
@@ -33,7 +37,7 @@ export class Image extends AggregateRoot {
     return {
       id: this.id.valueOf(),
       path: this.path.valueOf(),
-      resolution: this.resolution.valueOf(),
+      resolution: this.resolution?.valueOf(),
     };
   }
 }
