@@ -5,6 +5,7 @@ import { PrimitiveOf } from 'src/shared/FromPrimitves';
 import { TaskId } from './value-object/TaskId';
 import { TaskStatus } from './value-object/TaskStatus';
 import { ImageId } from 'src/contexts/images/domain/value-objects/ImageId';
+import { Unit } from './value-object/Units';
 
 export class Task extends AggregateRoot {
   public static fromPrimitives(primitives: PrimitiveOf<Task>): Task {
@@ -23,6 +24,22 @@ export class Task extends AggregateRoot {
     private readonly status: TaskStatus,
   ) {
     super(id);
+  }
+
+  public getId(): TaskId {
+    return this.id;
+  }
+
+  public getStatus(): TaskStatus {
+    return this.status;
+  }
+
+  public getPriceUnit(): Unit {
+    return this.price.getUnits();
+  }
+
+  public getImageIds(): ImageId[] {
+    return this.images;
   }
 
   public toPrimitives() {
