@@ -1,18 +1,22 @@
 import { PrimitiveOf } from 'src/shared/FromPrimitves';
-import { NumberValueObject } from 'src/shared/NumberValueObject';
 import { PriceCurrency } from './value-object/PriceCurrency';
+import { Unit } from './value-object/Units';
 
 export class Price {
   public static fromPrimitives(primitives: PrimitiveOf<Price>): Price {
     return new Price(
-      new NumberValueObject(primitives.units),
+      new Unit(primitives.units),
       new PriceCurrency(primitives.currency),
     );
   }
   constructor(
-    private readonly units: NumberValueObject,
+    private readonly units: Unit,
     private readonly currency: PriceCurrency,
   ) {}
+
+  public getUnits(): Unit {
+    return this.units;
+  }
 
   public toPrimitives() {
     return {
