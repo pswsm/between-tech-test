@@ -27,6 +27,6 @@ export default class ImageResizer {
       `${OutputFolder}/${hash.valueOf()}.${format.valueOf()}`,
     );
     await writeFile(newPath.valueOf(), buf);
-    await this.imageCreator.create(newPath, hash);
+    await this.imageCreator.create(newPath);
   }
 }
