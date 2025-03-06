@@ -10,6 +10,8 @@ export class TaskMapper {
       images: document.images.map((id) => id.toHexString()),
       price: document.price,
       status: document.status,
+      originalImage: document.path,
+      createdAt: document.createdAt,
     };
 
     return Task.fromPrimitives(primitives);
@@ -21,8 +23,10 @@ export class TaskMapper {
     return {
       _id: new ObjectId(primitives.id),
       price: primitives.price,
-      images: primitives.images.map(id => new ObjectId(id)),
+      images: primitives.images.map((id) => new ObjectId(id)),
       status: primitives.status,
-      createdAt: primitives.createdAt
+      createdAt: primitives.createdAt,
+      path: primitives.originalImage,
+    };
   }
 }
