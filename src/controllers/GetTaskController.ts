@@ -13,16 +13,11 @@ import { TaskViewModel } from './view-models/TaskViewModel';
 import ImageFinder from 'src/contexts/images/apps/ImageFinder';
 
 @Controller('tasks')
-export class TaskController {
+export class GetTaskController {
   constructor(
     private readonly taskFinder: TaskFinder,
     private readonly imageFinder: ImageFinder,
   ) {}
-
-  @Get()
-  public getRoot(): { root: boolean } {
-    return { root: true };
-  }
 
   @Get(':taskId')
   public async getTask(@Param('taskId') taskId: string) {
