@@ -25,4 +25,10 @@ export default class MongoTaskRepository implements TaskRepository {
 
     return TaskMapper.toDomain(document);
   }
+
+  async insert(task: Task): Promise<void> {
+    const doc = TaskMapper.toDocument(task);
+
+    await this.db.getCollection(this.collectionName).insertOne(doc);
+  }
 }
