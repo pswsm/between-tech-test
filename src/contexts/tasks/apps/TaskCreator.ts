@@ -5,14 +5,20 @@ import { PriceCurrency } from '../domain/value-object/PriceCurrency';
 import { NumberValueObject } from 'src/shared/NumberValueObject';
 import { Path } from 'src/contexts/images/domain/value-objects/Path';
 import { TaskId } from '../domain/value-object/TaskId';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import ImageCreator from 'src/contexts/images/apps/ImageCreator';
 import { Timestamp } from 'src/shared/Timestamp';
+import { TaskRepository } from '../domain/TaskRepository';
 
 @Injectable()
 export default class TaskCreator {
-  public static create(taskStatus: TaskStatus, imagePath: Path): Task {
-    const image = ImageCreator.create(imagePath);
+  constructor(
+    private readonly imageCreator: ImageCreator,
+    @Inject('TaskRepository') private readonly taskRepository: TaskRepository,
+  ) {}
+
+  public async create(taskStatus: TaskStatus, imagePath: Path): Promise<Task> {
+    const image = await this.imageCreator.create(imagePath);
     const task = new Task(
       TaskId.new(),
       image.getId(),
@@ -21,6 +27,8 @@ export default class TaskCreator {
       TaskStatus.PENDING,
       Timestamp.now(),
     );
+
+    await this.taskRepository.insert(task);
     return task;
   }
 }

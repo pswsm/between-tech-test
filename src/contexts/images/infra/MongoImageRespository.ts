@@ -5,7 +5,9 @@ import { ImageId } from '../domain/value-objects/ImageId';
 import { MongoImageDocument } from './MongoImageDocument';
 import { ObjectId } from 'mongodb';
 import { ImageMapper } from './ImageMapper';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export default class MongoImageRepository implements ImageRepository {
   private readonly db = GlobalDataSource;
   private readonly collectionName = 'images';

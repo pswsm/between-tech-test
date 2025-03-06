@@ -3,14 +3,24 @@ import { Image } from '../domain/Image';
 import { ImageId } from '../domain/value-objects/ImageId';
 import { Path } from '../domain/value-objects/Path';
 import { Timestamp } from 'src/shared/Timestamp';
+import { ImageRepository } from '../domain/ImageRepository';
+import { Inject, Injectable } from '@nestjs/common';
 
+@Injectable()
 export default class ImageCreator {
-  public static create(imagePath: Path): Image {
-    return new Image(
+  constructor(
+    @Inject('ImageRepository') private readonly repository: ImageRepository,
+  ) {}
+  public async create(imagePath: Path): Promise<Image> {
+    const image = new Image(
       ImageId.new(),
       imagePath,
       MD5Hash.new(imagePath.valueOf()),
       Timestamp.now(),
     );
+
+    await this.repository.insert(image);
+
+    return image;
   }
 }

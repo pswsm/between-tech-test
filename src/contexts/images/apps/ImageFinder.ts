@@ -1,10 +1,13 @@
+import { Inject } from '@nestjs/common';
 import { Image } from '../domain/Image';
 import { ImageRepository } from '../domain/ImageRepository';
 import { ImageId } from '../domain/value-objects/ImageId';
 import { ImageNotFound } from './errors/ImageNotFound';
 
 export default class ImageFinder {
-  constructor(private readonly repository: ImageRepository) {}
+  constructor(
+    @Inject('ImageRepository') private readonly repository: ImageRepository,
+  ) {}
 
   public async get(id: ImageId): Promise<Image> {
     const image = await this.repository.find(id);
