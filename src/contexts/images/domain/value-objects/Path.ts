@@ -11,4 +11,11 @@ export class Path extends StringValueObject {
 
     return new Extension(rawExt);
   }
+
+  public isRemote(): boolean {
+    if (/[a-z]:\/\//.test(this.value)) {
+      return true;
+    }
+    return false;
+  }
 }
