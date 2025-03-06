@@ -26,7 +26,6 @@ export class TaskController {
 
   @Get(':taskId')
   public async getTask(@Param('taskId') taskId: string) {
-    Logger.log('aaaaaaa');
     try {
       const task = await this.taskFinder.find(new TaskId(taskId));
       const viewModel = new TaskViewModel(this.imageFinder);
