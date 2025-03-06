@@ -1,6 +1,7 @@
 import { PrimitiveOf } from 'src/shared/FromPrimitves';
 import { Task } from '../domain/Task';
 import { MongoTaskDocument } from './MongoTaskDocument';
+import { ObjectId } from 'mongodb';
 
 export class TaskMapper {
   public static toDomain(document: MongoTaskDocument): Task {
@@ -12,5 +13,16 @@ export class TaskMapper {
     };
 
     return Task.fromPrimitives(primitives);
+  }
+
+  public static toDocument(task: Task): MongoTaskDocument {
+    const primitives = task.toPrimitives();
+
+    return {
+      _id: new ObjectId(primitives.id),
+      price: primitives.price,
+      images: primitives.images.map(id => new ObjectId(id)),
+      status: primitives.status,
+      createdAt: primitives.createdAt
   }
 }

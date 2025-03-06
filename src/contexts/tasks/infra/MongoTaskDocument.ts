@@ -9,5 +9,5 @@ export interface MongoTaskDocument {
   path: string;
   images: ObjectId[];
   status: string;
-  createdAt: string;
+  createdAt: number;
 }
