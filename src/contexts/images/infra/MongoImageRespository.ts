@@ -8,11 +8,11 @@ import { ImageMapper } from './ImageMapper';
 
 export default class MongoImageRepository implements ImageRepository {
   private readonly db = GlobalDataSource;
-  private readonly coillectionName = 'images';
+  private readonly collectionName = 'images';
 
   public async find(id: ImageId): Promise<Image | null> {
     const document: MongoImageDocument | null = await this.db
-      .getCollection(this.coillectionName)
+      .getCollection(this.collectionName)
       .findOne<MongoImageDocument>({ _id: new ObjectId(id.valueOf()) });
 
     if (!document) {
@@ -20,5 +20,11 @@ export default class MongoImageRepository implements ImageRepository {
     }
 
     return ImageMapper.toDomain(document);
+  }
+
+  public async insert(image: Image): Promise<void> {
+    const document = ImageMapper.toDocument(image);
+
+    await this.db.getCollection(this.collectionName).insertOne(document);
   }
 }
