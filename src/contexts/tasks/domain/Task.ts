@@ -6,6 +6,7 @@ import { TaskId } from './value-object/TaskId';
 import { TaskStatus } from './value-object/TaskStatus';
 import { ImageId } from 'src/contexts/images/domain/value-objects/ImageId';
 import { Unit } from './value-object/Units';
+import { Timestamp } from 'src/shared/Timestamp';
 
 export class Task extends AggregateRoot {
   public static fromPrimitives(primitives: PrimitiveOf<Task>): Task {
@@ -14,6 +15,7 @@ export class Task extends AggregateRoot {
       primitives.images.map((id) => new ImageId(id)),
       Price.fromPrimitives(primitives.price),
       new TaskStatus(primitives.status),
+      new Timestamp(primitives.createdAt),
     );
   }
 
@@ -22,6 +24,7 @@ export class Task extends AggregateRoot {
     private readonly images: ImageId[],
     private readonly price: Price,
     private readonly status: TaskStatus,
+    private readonly createdAt: Timestamp,
   ) {
     super(id);
   }
@@ -48,6 +51,7 @@ export class Task extends AggregateRoot {
       images: this.images.map((id) => id.valueOf()),
       price: this.price.toPrimitives(),
       status: this.status.valueOf(),
+      createdAt: this.createdAt.valueOf(),
     };
   }
 }
