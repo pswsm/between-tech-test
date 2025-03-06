@@ -1,3 +1,14 @@
 import { StringValueObject } from 'src/shared/StringValueObject';
+import { Extension } from './Extension';
+import { ExtensionNotFound } from './error/ExtenstionNotFound';
 
-export class Path extends StringValueObject {}
+export class Path extends StringValueObject {
+  public getExtension(): Extension {
+    const rawExt = this.value.split('.', 1).at(-1);
+    if (!rawExt) {
+      throw new ExtensionNotFound();
+    }
+
+    return new Extension(rawExt);
+  }
+}

@@ -5,6 +5,7 @@ import { ImageId } from './value-objects/ImageId';
 import { Resolution } from './value-objects/Resolution';
 import { Timestamp } from 'src/shared/Timestamp';
 import { MD5Hash } from 'src/shared/MD5Hash';
+import { Extension } from './value-objects/Extension';
 
 export class Image extends AggregateRoot {
   public static fromPrimitives(primitives: PrimitiveOf<Image>): Image {
@@ -33,6 +34,10 @@ export class Image extends AggregateRoot {
 
   public getPath(): Path {
     return this.path;
+  }
+
+  public getExtension(): Extension {
+    return this.path.getExtension();
   }
 
   public getResolution(): Resolution | undefined {
