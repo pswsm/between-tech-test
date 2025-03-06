@@ -9,7 +9,7 @@ export class Database {
   }
 
   public getCollection(name: string): Collection {
-    return this.client.db().collection(name);
+    return this.client.db('between').collection(name);
   }
 }
 
