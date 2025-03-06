@@ -1,12 +1,13 @@
+import sharp from 'sharp';
+import { writeFile } from 'node:fs/promises';
 import { Injectable } from '@nestjs/common';
 import { Resolution } from '../domain/value-objects/Resolution';
-import sharp from 'sharp';
-import ImageFinder from './ImageFinder';
-import ImageCreator from './ImageCreator';
 import { Image } from '../domain/Image';
 import { OutputFolder } from './OutputFolder';
 import { MD5Hash } from 'src/shared/MD5Hash';
-import { writeFile } from 'node:fs/promises';
+import { Path } from '../domain/value-objects/Path';
+import ImageFinder from './ImageFinder';
+import ImageCreator from './ImageCreator';
 
 @Injectable()
 export default class ImageResizer {
@@ -22,9 +23,10 @@ export default class ImageResizer {
       .resize(resolution.valueOf())
       .toBuffer();
     const hash = MD5Hash.new(buf);
-    await writeFile(
+    const newPath = new Path(
       `${OutputFolder}/${hash.valueOf()}.${format.valueOf()}`,
-      buf,
     );
+    await writeFile(newPath.valueOf(), buf);
+    await this.imageCreator.create(newPath, hash);
   }
 }
