@@ -17,7 +17,7 @@ export default class TaskCreator {
     @Inject('TaskRepository') private readonly taskRepository: TaskRepository,
   ) {}
 
-  public async create(taskStatus: TaskStatus, imagePath: Path): Promise<Task> {
+  public async create(imagePath: Path): Promise<Task> {
     const image = await this.imageCreator.create(imagePath);
     const task = new Task(
       TaskId.new(),
