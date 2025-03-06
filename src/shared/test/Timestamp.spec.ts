@@ -21,4 +21,20 @@ describe('Timestamp', () => {
       expect(() => new Timestamp(-1)).toThrow(InvalidTimestampError);
     });
   });
+
+  describe('isAfter', () => {
+    const after_t = 1069347600000;
+    it('should return true', () => {
+      const before = new Timestamp(twenty_oct);
+      const after = new Timestamp(after_t);
+
+      expect(after.isAfter(before)).toBeTruthy();
+    });
+    it('should return false', () => {
+      const before = new Timestamp(twenty_oct);
+      const after = new Timestamp(after_t);
+
+      expect(before.isAfter(after)).toBeFalsy();
+    });
+  });
 });
