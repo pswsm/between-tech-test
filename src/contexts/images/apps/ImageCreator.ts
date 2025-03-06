@@ -11,13 +11,8 @@ export default class ImageCreator {
   constructor(
     @Inject('ImageRepository') private readonly repository: ImageRepository,
   ) {}
-  public async create(imagePath: Path): Promise<Image> {
-    const image = new Image(
-      ImageId.new(),
-      imagePath,
-      MD5Hash.new(imagePath.valueOf()),
-      Timestamp.now(),
-    );
+  public async create(imagePath: Path, hash: MD5Hash): Promise<Image> {
+    const image = new Image(ImageId.new(), imagePath, hash, Timestamp.now());
 
     await this.repository.insert(image);
 
