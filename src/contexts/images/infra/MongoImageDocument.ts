@@ -6,5 +6,5 @@ export interface MongoImageDocument {
   resolution?: number;
   variants?: ObjectId[];
   hash: string;
-  createdAt: string;
+  createdAt: number;
 }
