@@ -1,4 +1,4 @@
-import { GlobalDataSource } from 'src/shared/MongoClient';
+import { GlobalDataSource } from '@app/shared/MongoClient';
 import { Image } from '../domain/Image';
 import { ImageRepository } from '../domain/ImageRepository';
 import { ImageId } from '../domain/value-objects/ImageId';

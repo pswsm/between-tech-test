@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { StringValueObject } from 'src/shared/StringValueObject';
+import { StringValueObject } from '@app/shared/StringValueObject';
 
 export class TaskId extends StringValueObject {
   public static new(): TaskId {

@@ -1,4 +1,4 @@
-import { PrimitiveOf } from 'src/shared/FromPrimitves';
+import { PrimitiveOf } from '@app/shared/FromPrimitves';
 import { Image } from '../domain/Image';
 import { MongoImageDocument } from './MongoImageDocument';
 import { ObjectId } from 'mongodb';

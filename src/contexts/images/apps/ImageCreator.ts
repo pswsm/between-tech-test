@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CreateImageStrategy } from './CreateImageStrategy';
 import { Image } from '../domain/Image';
-import { EventName } from 'src/event-handlers/events/EventNames';
+import { EventName } from '@app/event-handlers/events/EventNames';
 import CreateRemoteImageStrategy from './CreateRemoteImageStrategy';
 import CreateLocalImageStrategy from './CreateLocalImageStrategy';
 

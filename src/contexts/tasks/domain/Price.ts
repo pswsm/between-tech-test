@@ -1,6 +1,6 @@
 import { PrimitiveOf } from 'src/shared/FromPrimitves';
 import { PriceCurrency } from './value-object/PriceCurrency';
-import { Unit } from './value-object/Units';
+import { Unit } from './value-object/Unit';
 
 export class Price {
   public static fromPrimitives(primitives: PrimitiveOf<Price>): Price {

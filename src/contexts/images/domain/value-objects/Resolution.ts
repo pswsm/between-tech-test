@@ -1,4 +1,4 @@
-import { NumberValueObject } from 'src/shared/NumberValueObject';
+import { NumberValueObject } from '@app/shared/NumberValueObject';
 
 export class Resolution extends NumberValueObject {
   public static px1024 = new Resolution(1024);

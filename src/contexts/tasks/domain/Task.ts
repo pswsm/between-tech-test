@@ -1,11 +1,11 @@
-import { AggregateRoot } from 'src/shared/AggregateRoot';
 import { Price } from './Price';
-import { PrimitiveOf } from 'src/shared/FromPrimitves';
+import { PrimitiveOf } from '@app/shared/FromPrimitves';
 import { TaskId } from './value-object/TaskId';
 import { TaskStatus } from './value-object/TaskStatus';
-import { ImageId } from 'src/contexts/images/domain/value-objects/ImageId';
-import { Unit } from './value-object/Units';
-import { Timestamp } from 'src/shared/Timestamp';
+import { ImageId } from '@app/contexts/images/domain/value-objects/ImageId';
+import { Unit } from './value-object/Unit';
+import { Timestamp } from '@app/shared/Timestamp';
+import { AggregateRoot } from '@app/shared/AggregateRoot';
 
 export class Task extends AggregateRoot {
   public static fromPrimitives(primitives: PrimitiveOf<Task>): Task {

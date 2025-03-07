@@ -4,12 +4,12 @@ import { Injectable } from '@nestjs/common';
 import { Resolution } from '../domain/value-objects/Resolution';
 import { Image } from '../domain/Image';
 import { OutputFolder } from './OutputFolder';
-import { MD5Hash } from 'src/shared/MD5Hash';
+import { MD5Hash } from '@app/shared/MD5Hash';
 import { Path } from '../domain/value-objects/Path';
 import ImageFinder from './ImageFinder';
 import ImageCreator from './ImageCreator';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { EventName } from 'src/event-handlers/events/EventNames';
+import { EventName } from '@app/event-handlers/events/EventNames';
 import { ImageId } from '../domain/value-objects/ImageId';
 
 @Injectable()

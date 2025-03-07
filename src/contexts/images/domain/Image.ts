@@ -1,10 +1,10 @@
 import { Path } from './value-objects/Path';
 import { PrimitiveOf } from 'src/shared/FromPrimitves';
-import { AggregateRoot } from 'src/shared/AggregateRoot';
+import { AggregateRoot } from '@app/shared/AggregateRoot';
 import { ImageId } from './value-objects/ImageId';
 import { Resolution } from './value-objects/Resolution';
-import { Timestamp } from 'src/shared/Timestamp';
-import { MD5Hash } from 'src/shared/MD5Hash';
+import { Timestamp } from '@app/shared/Timestamp';
+import { MD5Hash } from '@app/shared/MD5Hash';
 import { Extension } from './value-objects/Extension';
 
 export class Image extends AggregateRoot {

@@ -1,4 +1,4 @@
-import { StringValueObject } from 'src/shared/StringValueObject';
+import { StringValueObject } from '@app/shared/StringValueObject';
 import { Extension } from './Extension';
 import { ExtensionNotFound } from './error/ExtenstionNotFound';
 

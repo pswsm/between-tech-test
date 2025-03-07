@@ -1,4 +1,4 @@
-import { StringValueObject } from 'src/shared/StringValueObject';
+import { StringValueObject } from '@app/shared/StringValueObject';
 
 export class TaskStatus extends StringValueObject {
   public static PENDING = new TaskStatus('PENDING');
