@@ -9,6 +9,8 @@ import { Path } from '../domain/value-objects/Path';
 import ImageFinder from './ImageFinder';
 import ImageCreator from './ImageCreator';
 import { EventEmitter2 } from '@nestjs/event-emitter';
+import { EventName } from 'src/event-handlers/events/EventNames';
+import { ImageId } from '../domain/value-objects/ImageId';
 
 @Injectable()
 export default class ImageResizer {
@@ -18,7 +20,10 @@ export default class ImageResizer {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
-  public async resizeTo(image: Image, resolution: Resolution): Promise<void> {
+  public async resizeTo(
+    image: Image,
+    resolution: Resolution,
+  ): Promise<ImageId> {
     const path = image.getPath();
     const format = image.getExtension();
     const buf = await sharp(path.valueOf())
@@ -29,6 +34,11 @@ export default class ImageResizer {
       `${OutputFolder}/${hash.valueOf()}.${format.valueOf()}`,
     );
     await writeFile(newPath.valueOf(), buf);
-    await this.imageCreator.create(newPath);
+    const resizedImage = await this.imageCreator.create(newPath);
+    this.eventEmitter.emit(EventName.ImageCreated, {
+      id: image.getId().valueOf(),
+    });
+
+    return resizedImage.getId();
   }
 }
