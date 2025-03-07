@@ -7,7 +7,7 @@ import TaskFailedUpdater from './apps/TaskFailedUpdater';
 import TaskCompletedUpdater from './apps/TaskComepletedUpdater';
 
 @Module({
-  exports: [TaskCreator, TaskFinder],
+  exports: [TaskCreator, TaskFinder, TaskFailedUpdater, TaskCompletedUpdater],
   imports: [ImageModule],
   providers: [
     TaskCreator,
