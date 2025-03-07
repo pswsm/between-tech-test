@@ -31,4 +31,12 @@ export default class MongoTaskRepository implements TaskRepository {
 
     await this.db.getCollection(this.collectionName).insertOne(doc);
   }
+
+  async updateStatus(task: Task): Promise<void> {
+    const document = TaskMapper.toDocument(task);
+
+    await this.db
+      .getCollection(this.collectionName)
+      .replaceOne({ _id: new ObjectId(task.getId().valueOf()) }, document);
+  }
 }
