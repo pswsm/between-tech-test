@@ -22,9 +22,9 @@ export class Task extends AggregateRoot {
   constructor(
     id: TaskId,
     private readonly originalImage: ImageId,
-    private readonly images: ImageId[],
+    private images: ImageId[],
     private readonly price: Price,
-    private readonly status: TaskStatus,
+    private status: TaskStatus,
     private readonly createdAt: Timestamp,
   ) {
     super(id);
@@ -48,6 +48,15 @@ export class Task extends AggregateRoot {
 
   public getImageIds(): ImageId[] {
     return this.images;
+  }
+
+  public complete(imageIds: ImageId[]): void {
+    this.status = TaskStatus.COMPLETE;
+    this.images = imageIds;
+  }
+
+  public fail(): void {
+    this.status = TaskStatus.FAILED;
   }
 
   public toPrimitives() {
