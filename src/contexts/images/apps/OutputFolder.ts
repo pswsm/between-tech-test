@@ -1,1 +1,1 @@
-export const OutputFolder = '/output/';
+export const OutputFolder = '/tmp';
