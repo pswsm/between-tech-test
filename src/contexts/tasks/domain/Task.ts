@@ -30,6 +30,10 @@ export class Task extends AggregateRoot {
     super(id);
   }
 
+  public getOriginalImageId(): ImageId {
+    return this.originalImage;
+  }
+
   public getId(): TaskId {
     return this.id;
   }
