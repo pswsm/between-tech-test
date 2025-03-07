@@ -3,8 +3,10 @@ import { ImageRepository } from '../domain/ImageRepository';
 import { Inject, Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { CreateImageStrategy } from './CreateImageStrategy';
-import CreateRemoteImageStrategy from './CreateRemoteImageStrategy';
 import { Image } from '../domain/Image';
+import { EventName } from 'src/event-handlers/events/EventNames';
+import CreateRemoteImageStrategy from './CreateRemoteImageStrategy';
+import CreateLocalImageStrategy from './CreateLocalImageStrategy';
 
 @Injectable()
 export default class ImageCreator {
@@ -17,7 +19,16 @@ export default class ImageCreator {
   public async create(imagePath: Path): Promise<Image> {
     if (imagePath.isRemote()) {
       this.strategy = new CreateRemoteImageStrategy(this.eventEmitter);
+    } else {
+      this.strategy = new CreateLocalImageStrategy(this.eventEmitter);
     }
-    return await this.strategy.create(imagePath);
+    const image = await this.strategy.create(imagePath);
+
+    await this.repository.insert(image);
+    this.eventEmitter.emit(EventName.ImageCreated, {
+      id: image.getId().valueOf(),
+    });
+
+    return image;
   }
 }
