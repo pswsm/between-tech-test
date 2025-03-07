@@ -15,6 +15,8 @@ import { Path } from 'src/contexts/images/domain/value-objects/Path';
 
 @Controller('tasks')
 export class PostTaskController {
+  private readonly logger = new Logger(PostTaskController.name);
+
   constructor(
     private readonly taskCreator: TaskCreator,
     private readonly imageFinder: ImageFinder,
@@ -27,12 +29,10 @@ export class PostTaskController {
     try {
       const path = new Path(postTaskBody.path);
       const task = await this.taskCreator.create(path);
-      const viewModel = new TaskViewModel(this.imageFinder);
-
-      return viewModel.toResource(task);
+      return await new TaskViewModel(this.imageFinder).toResource(task);
     } catch (error: unknown) {
       const e = error as Error;
-      Logger.error(e.message);
+      this.logger.error(e.message);
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
   }

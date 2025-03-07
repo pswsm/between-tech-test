@@ -14,6 +14,8 @@ import ImageFinder from 'src/contexts/images/apps/ImageFinder';
 
 @Controller('tasks')
 export class GetTaskController {
+  private readonly logger = new Logger(GetTaskController.name);
+
   constructor(
     private readonly taskFinder: TaskFinder,
     private readonly imageFinder: ImageFinder,
@@ -28,7 +30,7 @@ export class GetTaskController {
       return viewModel.toResource(task);
     } catch (error: unknown) {
       const e = error as Error;
-      Logger.error(e.message);
+      this.logger.error(e.message);
       if ((error as Error).constructor.name === 'TaskNotFound') {
         throw new HttpException(
           (error as TaskNotFound).message,

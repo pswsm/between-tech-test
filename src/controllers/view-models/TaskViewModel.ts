@@ -6,6 +6,7 @@ import ImageFinder from 'src/contexts/images/apps/ImageFinder';
 
 export class TaskViewModel {
   constructor(private readonly imageFinder: ImageFinder) {}
+
   public async toResource(task: Task): Promise<TaskResource> {
     const imageIds = task.getImageIds();
     const images: Image[] = [];
