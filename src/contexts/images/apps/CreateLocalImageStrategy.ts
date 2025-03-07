@@ -7,7 +7,7 @@ import { Timestamp } from 'src/shared/Timestamp';
 import { readFile } from 'fs/promises';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Image } from '../domain/Image';
-import { EventName } from 'src/shared/events/EventNames';
+import { EventName } from 'src/event-handlers/events/EventNames';
 
 export default class CreateLocalImageStrategy implements CreateImageStrategy {
   constructor(private readonly eventEmitter: EventEmitter2) {}
