@@ -9,7 +9,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Timestamp } from 'src/shared/Timestamp';
 import { TaskRepository } from '../domain/TaskRepository';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { EventName } from 'src/shared/events/EventNames';
+import { EventName } from 'src/event-handlers/events/EventNames';
 import ImageCreator from 'src/contexts/images/apps/ImageCreator';
 
 @Injectable()
