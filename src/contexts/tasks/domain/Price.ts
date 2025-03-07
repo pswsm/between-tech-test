@@ -9,6 +9,7 @@ export class Price {
       new PriceCurrency(primitives.currency),
     );
   }
+
   constructor(
     private readonly units: Unit,
     private readonly currency: PriceCurrency,
