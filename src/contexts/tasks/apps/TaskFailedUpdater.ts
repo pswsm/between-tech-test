@@ -13,5 +13,7 @@ export default class TaskFailedUpdater {
   public async failed(taskId: TaskId): Promise<void> {
     const task = await this.taskFinder.find(taskId);
     task.fail();
+
+    await this.taskRepository.updateStatus(task);
   }
 }
