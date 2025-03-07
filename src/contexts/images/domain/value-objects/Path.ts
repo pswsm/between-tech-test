@@ -4,12 +4,13 @@ import { ExtensionNotFound } from './error/ExtenstionNotFound';
 
 export class Path extends StringValueObject {
   public getExtension(): Extension {
-    const rawExt = this.value.split('.', 1).at(-1);
-    if (!rawExt) {
+    const l = this.value.split('/');
+    const matches = /\.[a-z]{1,4}/.exec(l.at(-1) ?? '');
+    if (!matches) {
       throw new ExtensionNotFound();
     }
 
-    return new Extension(rawExt);
+    return new Extension(matches.at(-1) ?? matches[0]);
   }
 
   public isRemote(): boolean {
