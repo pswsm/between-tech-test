@@ -1,4 +1,4 @@
-import { ObjectId, Timestamp } from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 export interface MongoImageDocument {
   _id: ObjectId;
@@ -6,5 +6,5 @@ export interface MongoImageDocument {
   resolution?: number;
   variants?: ObjectId[];
   hash: string;
-  createdAt: Timestamp;
+  createdAt: number;
 }

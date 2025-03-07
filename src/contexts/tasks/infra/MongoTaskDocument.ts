@@ -1,4 +1,4 @@
-import { ObjectId, Timestamp } from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 export interface MongoTaskDocument {
   _id: ObjectId;
@@ -9,5 +9,5 @@ export interface MongoTaskDocument {
   path: string;
   images: ObjectId[];
   status: string;
-  createdAt: Timestamp;
+  createdAt: number;
 }
