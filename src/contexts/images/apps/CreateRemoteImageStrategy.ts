@@ -4,7 +4,7 @@ import { Path } from '../domain/value-objects/Path';
 import { Image } from '../domain/Image';
 import { writeFile } from 'fs/promises';
 import { Timestamp } from 'src/shared/Timestamp';
-import { EventName } from 'src/shared/events/EventNames';
+import { EventName } from 'src/event-handlers/events/EventNames';
 import { MD5Hash } from 'src/shared/MD5Hash';
 import { ImageId } from '../domain/value-objects/ImageId';
 import { DownloadFolder } from './DownloadFolder';
@@ -22,11 +22,11 @@ export default class CreateRemoteImageStrategy implements CreateImageStrategy {
     });
     const buf = Buffer.from(responseBody);
     const hash = MD5Hash.new(buf);
-    await writeFile(
-      `${DownloadFolder}/${hash.valueOf()}.${imagePath.getExtension().valueOf()}`,
-      buf,
+    const localPath: Path = new Path(
+      `${DownloadFolder}/${hash.valueOf()}${imagePath.getExtension().valueOf()}`,
     );
-    const image = new Image(ImageId.new(), imagePath, hash, Timestamp.now());
+    await writeFile(localPath.valueOf(), buf);
+    const image = new Image(ImageId.new(), localPath, hash, Timestamp.now());
 
     this.eventEmitter.emit(EventName.ImageCreated, {
       id: image.getId().valueOf(),
