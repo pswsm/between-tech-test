@@ -9,6 +9,12 @@ describe('MD5Hash', () => {
         value: hash,
       });
     });
+
+    it('should create a new hash from binary', () => {
+      const arrayBuffer = new Uint8Array([2, 3, 12, 14]);
+
+      expect(MD5Hash.new(arrayBuffer)).toHaveProperty('value');
+    });
   });
 
   describe('constructor', () => {
