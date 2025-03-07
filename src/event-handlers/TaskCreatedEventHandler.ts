@@ -10,6 +10,8 @@ import { Image } from 'src/contexts/images/domain/Image';
 
 @Injectable()
 export default class TaskCreatedEventHandler {
+  private readonly logger = new Logger(TaskCreatedEventHandler.name);
+
   constructor(
     private readonly imageResizer: ImageResizer,
     private readonly imageFinder: ImageFinder,
@@ -37,8 +39,8 @@ export default class TaskCreatedEventHandler {
         },
       });
     } catch (e: unknown) {
-      Logger.error((e as Error).message);
       this.eventEmitter.emit(EventName.TaskResizeFailed, { id: event.id });
+      this.logger.error((e as Error).message);
     }
   }
 }
