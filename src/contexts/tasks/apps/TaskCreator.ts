@@ -6,15 +6,18 @@ import { NumberValueObject } from 'src/shared/NumberValueObject';
 import { Path } from 'src/contexts/images/domain/value-objects/Path';
 import { TaskId } from '../domain/value-object/TaskId';
 import { Inject, Injectable } from '@nestjs/common';
-import ImageCreator from 'src/contexts/images/apps/ImageCreator';
 import { Timestamp } from 'src/shared/Timestamp';
 import { TaskRepository } from '../domain/TaskRepository';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { EventName } from 'src/shared/events/EventNames';
+import ImageCreator from 'src/contexts/images/apps/ImageCreator';
 
 @Injectable()
 export default class TaskCreator {
   constructor(
     private readonly imageCreator: ImageCreator,
     @Inject('TaskRepository') private readonly taskRepository: TaskRepository,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   public async create(imagePath: Path): Promise<Task> {
@@ -27,6 +30,13 @@ export default class TaskCreator {
       TaskStatus.PENDING,
       Timestamp.now(),
     );
+
+    this.eventEmitter.emit(EventName.TaskCreated, {
+      id: task.getId().valueOf(),
+      payload: {
+        imageId: task.getOriginalImageId().valueOf(),
+      },
+    });
 
     await this.taskRepository.insert(task);
     return task;
