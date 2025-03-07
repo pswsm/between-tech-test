@@ -1,5 +1,5 @@
 import sharp from 'sharp';
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { Injectable } from '@nestjs/common';
 import { Resolution } from '../domain/value-objects/Resolution';
 import { Image } from '../domain/Image';
@@ -26,12 +26,11 @@ export default class ImageResizer {
   ): Promise<ImageId> {
     const path = image.getPath();
     const format = image.getExtension();
-    const buf = await sharp(path.valueOf())
-      .resize(resolution.valueOf())
-      .toBuffer();
+    const file = await readFile(path.valueOf());
+    const buf = await sharp(file).resize(resolution.valueOf()).toBuffer();
     const hash = MD5Hash.new(buf);
     const newPath = new Path(
-      `${OutputFolder}/${hash.valueOf()}.${format.valueOf()}`,
+      `${OutputFolder}/${hash.valueOf()}${format.valueOf()}`,
     );
     await writeFile(newPath.valueOf(), buf);
     const resizedImage = await this.imageCreator.create(newPath);
