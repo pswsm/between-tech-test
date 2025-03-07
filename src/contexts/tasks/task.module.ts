@@ -3,6 +3,8 @@ import TaskCreator from './apps/TaskCreator';
 import TaskFinder from './apps/TaskFinder';
 import MongoTaskRepository from './infra/MongoTaskRepository';
 import { ImageModule } from '../images/images.module';
+import TaskFailedUpdater from './apps/TaskFailedUpdater';
+import TaskCompletedUpdater from './apps/TaskComepletedUpdater';
 
 @Module({
   exports: [TaskCreator, TaskFinder],
@@ -14,6 +16,8 @@ import { ImageModule } from '../images/images.module';
       provide: 'TaskRepository',
       useClass: MongoTaskRepository,
     },
+    TaskFailedUpdater,
+    TaskCompletedUpdater,
   ],
 })
 export class TaskModule {}
