@@ -3,9 +3,10 @@ import ImageCreator from './apps/ImageCreator';
 import ImageFinder from './apps/ImageFinder';
 import MongoImageRepository from './infra/MongoImageRespository';
 import CreateLocalImageStrategy from './apps/CreateLocalImageStrategy';
+import ImageResizer from './apps/ImageResizer';
 
 @Module({
-  exports: [ImageCreator, ImageFinder],
+  exports: [ImageCreator, ImageFinder, ImageResizer],
   providers: [
     ImageCreator,
     ImageFinder,
@@ -17,6 +18,7 @@ import CreateLocalImageStrategy from './apps/CreateLocalImageStrategy';
       provide: 'CreateImageStrategy',
       useClass: CreateLocalImageStrategy,
     },
+    ImageResizer,
   ],
 })
 export class ImageModule {}
